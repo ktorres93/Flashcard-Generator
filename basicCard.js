@@ -1,23 +1,37 @@
+//loading in inquireer
 var inquirer = require('inquirer');
-var questions =[
-        {front:"The two kinds of monosaccharides are ...",
-        back:"aldoses, ketoses"
-        },
-        {front: "Starches are polymers made exclusively from ...",
-        back:"glucose"
-        }];
+//using constructor here instead of an array to hold/create questions.
+var question =  function (front,back) {
+    this.front = front;
+        this.back= back;
 
+};
+console.log(question());
+//creating questions with constructor.
+var q1 = new question("The two kinds of monosaccharides are ...","aldoses, ketoses");
+
+var q2 = new question("Starches are polymers made exclusively from ...","glucose");
+
+
+//initializes inquirer to ask questions
 inquirer.prompt([
 
-    {   name:"Q1",
+    {   type: "input",
+        name:"Q1",
         message:"The two kinds of monosaccharides are ...",
         back:"aldoses, ketoses"
 },
-    {   name:"Q2",
+    {   type: "input",
+        name:"Q2",
         message: "Starches are polymers made exclusively from ...",
         back:"glucose"
     }]).then(function (answers) {
-
+if ("input" === "back"){
+    console.log("CORRECT");
+}
+else{
+    console.log("WRONG");
+}
 });
 
 //console.log(questions);
