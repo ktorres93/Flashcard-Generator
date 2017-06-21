@@ -1,5 +1,6 @@
 //loading in inquireer
 var inquirer = require('inquirer');
+var rightAnswer= 0;
 //using constructor here instead of an array to hold/create questions.
 var question =  function (front,back) {
     this.front = front;
@@ -8,12 +9,12 @@ var question =  function (front,back) {
 };
 console.log(question());
 //creating questions with constructor.
-var q1 = new question("A kind of monosaccharide starting with the letter 'A' is ...","aldoses");
+var q1 = new question("A kind of monosaccharide starting with the letter 'A' is ...","aldose");
 
 var q2 = new question("Starches are polymers made exclusively from ...","glucose");
 
 
-//initializes inquirer to ask questions
+//initializes inquirer to ask questions and assigns values to answers
 inquirer.prompt([
 
     {   type: "input",
@@ -25,22 +26,35 @@ inquirer.prompt([
         name:"question2",
         message: q2.front,
         back:q2.back
+
+        //starts right/wrong test
     }]).then(function (inquirer) {
+
 if (inquirer.question1 === q1.back){
     console.log("CORRECT");
+    ++rightAnswer;
 }
 else{
     console.log("WRONG");
 }
     if (inquirer.question2 === q2.back){
         console.log("CORRECT");
+        ++rightAnswer;
     }
     else{
         console.log("WRONG");
     }
-    if (console.log("WRONG") === true){
-        console.log("The correct answers were" + q1.back + "and" +q2.back)
-    }
+        if (rightAnswer === 2){
+        console.log("NICE YOU GOT EM ALL")
+        }
+        else if (rightAnswer === 1){
+            console.log("1 out of 2 isnt bad...");
+        }
+        else if (rightAnswer === 0){
+            console.log("BACK TO BIO1 FOR YOU");
+        }
+        console.log("The correct answers were" +" "+ q1.back+ " " + "and" + " "+ q2.back)
+
 });
 
 //console.log(questions);
