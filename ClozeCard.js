@@ -1,14 +1,14 @@
 //loading in inquireer
 var inquirer = require('inquirer');
 var rightAnswer= 0;
-//using constructor here instead of an array to hold/create questions.
+//using constructor here instead of an array to hold/create CLOZE questions.
 var question =  function (front,back) {
     this.front = front;
-        this.back= back;
+    this.back= back;
 
 };
 console.log(question());
-//creating questions with constructor.
+//creating CLOZE questions with constructor.
 var q1 = new question("A kind of monosaccharide starting with the letter 'A' is ...","aldose");
 
 var q2 = new question("Starches are polymers made exclusively from ...","glucose");
@@ -21,7 +21,7 @@ inquirer.prompt([
         name:"question1",
         message:q1.front,
         back:q1.back
-},
+    },
     {   type: "input",
         name:"question2",
         message: q2.front,
@@ -30,13 +30,13 @@ inquirer.prompt([
         //starts right/wrong test
     }]).then(function (inquirer) {
 
-if (inquirer.question1 === q1.back){
-    console.log("CORRECT");
-    ++rightAnswer;
-}
-else{
-    console.log("WRONG");
-}
+    if (inquirer.question1 === q1.back){
+        console.log("CORRECT");
+        ++rightAnswer;
+    }
+    else{
+        console.log("WRONG");
+    }
     if (inquirer.question2 === q2.back){
         console.log("CORRECT");
         ++rightAnswer;
@@ -44,16 +44,16 @@ else{
     else{
         console.log("WRONG");
     }
-        if (rightAnswer === 2){
+    if (rightAnswer === 2){
         console.log("NICE YOU GOT EM ALL")
-        }
-        else if (rightAnswer === 1){
-            console.log("1 out of 2 isnt bad...");
-        }
-        else if (rightAnswer === 0){
-            console.log("BACK TO BIO1 FOR YOU");
-        }
-        console.log("The correct answers were" +" "+ q1.back+ " " + "and" + " "+ q2.back)
+    }
+    else if (rightAnswer === 1){
+        console.log("1 out of 2 isnt bad...");
+    }
+    else if (rightAnswer === 0){
+        console.log("BACK TO BIO1 FOR YOU");
+    }
+    console.log("The correct answers were" +" "+ q1.back+ " " + "and" + " "+ q2.back)
 
 });
 
