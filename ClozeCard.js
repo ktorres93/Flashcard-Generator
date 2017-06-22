@@ -2,16 +2,16 @@
 var inquirer = require('inquirer');
 var rightAnswer= 0;
 //using constructor here instead of an array to hold/create CLOZE questions.
-var question =  function (front,back) {
-    this.front = front;
-    this.back= back;
-
+var cloze  =  function (unClozedText,clozedText,clozedWord) {
+    this.unClozedText = unClozedText;
+    this.clozedText= clozedText;
+    this.clozedWord= clozedWord
 };
-console.log(question());
+//console.log(cloze());
 //creating CLOZE questions with constructor.
-var q1 = new question("A kind of monosaccharide starting with the letter 'A' is ...","aldose");
-
-var q2 = new question("Starches are polymers made exclusively from ...","glucose");
+var q1clozed = new cloze("A kind of monosaccharide starting with the letter 'A' is aldose","A kind of monosaccharide starting with the letter 'A' is ... ","aldose");
+//console.log(q1clozed);
+var q2clozed = new cloze("Starches are polymers made exclusively from glucose","Starches are polymers made exclusively from glucose","glucose");
 
 
 //initializes inquirer to ask questions and assigns values to answers
@@ -19,30 +19,34 @@ inquirer.prompt([
 
     {   type: "input",
         name:"question1",
-        message:q1.front,
-        back:q1.back
+        message:q1clozed.clozedText,
+        answer:q1clozed.clozedWord
     },
     {   type: "input",
         name:"question2",
-        message: q2.front,
-        back:q2.back
+        message: q2clozed.clozedText,
+        answer:q2clozed.clozedWord
 
         //starts right/wrong test
     }]).then(function (inquirer) {
 
-    if (inquirer.question1 === q1.back){
+    if (inquirer.question1 === q1clozed.clozedWord){
         console.log("CORRECT");
         ++rightAnswer;
+        console.log(q1clozed.unClozedText);
     }
     else{
         console.log("WRONG");
+        console.log(q1clozed.unClozedText);
     }
-    if (inquirer.question2 === q2.back){
+    if (inquirer.question2 === q2clozed.clozedWord){
         console.log("CORRECT");
         ++rightAnswer;
+        console.log(q2clozed.unClozedText);
     }
     else{
         console.log("WRONG");
+        console.log(q2clozed.unClozedText);
     }
     if (rightAnswer === 2){
         console.log("NICE YOU GOT EM ALL")
@@ -53,7 +57,7 @@ inquirer.prompt([
     else if (rightAnswer === 0){
         console.log("BACK TO BIO1 FOR YOU");
     }
-    console.log("The correct answers were" +" "+ q1.back+ " " + "and" + " "+ q2.back)
+    console.log("The correct answers were" +" "+ q1clozed.clozedWord+ " " + "and" + " "+ q2clozed.clozedWord)
 
 });
 
